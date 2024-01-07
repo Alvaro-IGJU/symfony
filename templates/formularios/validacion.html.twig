@@ -1,0 +1,59 @@
+{% extends 'template/frontend.html.twig' %}
+
+{% block title %}Formularios
+{% endblock %}
+
+{% block body %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{path('home_inicio')}}">Home</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{path('formularios_inicio')}}">Formularios</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Formularios Validación</li>
+		</ol>
+	</nav>
+	<h1>Formulario Validación</h1>
+	{% if errors %}
+		<div class="alert alert-danger alert-dismissible fade show">
+			<ul>
+				{% for error in errors %}
+					<li>{{ error.message }}</li>
+				{% endfor %}
+			</ul>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+		</div>
+	{% endif %}
+	{% for mensaje in app.flashes('mensaje') %}
+		<div class="alert alert-{{ app.flashes('css')[0] }} alert-dismissible fade show" role="alert">
+			{{mensaje}}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor  %}
+	<form method="POST" action="{{url('formularios_validacion')}}">
+		<div class="form-group">
+			<label for="form_nombre">Nombre:</label>
+			{{form_widget(form.nombre , {"required" : false, "attr": {"placeholder":"Nombre"}})}}
+		</div>
+		<div class="form-group">
+			<label for="form_email">E-Mail:</label>
+			{{form_widget(form.correo, {"required" : false, "attr": {"placeholder":"E-Mail"}})}}
+		</div>
+		<div class="form-group">
+			<label for="form_telefono">Teléfono:</label>
+			{{form_widget(form.telefono)}}
+		</div>
+		<div class="form-group">
+			<label for="form_telefono">País:</label>
+			{{form_widget(form.pais, {"required" : false, "attr": {"placeholder":"País"}})}}
+		</div>
+		<hr/>
+		<input type="hidden" name="token" value="{{ csrf_token('generico') }}">
+		<button type="submit" title="Enviar" class="btn btn-primary">
+			<i class="fas fa-check"></i>
+			Enviar</button>
+	</form>
+{% endblock %}

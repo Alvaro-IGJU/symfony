@@ -1,0 +1,35 @@
+{% extends 'template/frontend.html.twig' %}
+
+{% block title %} Template trabajo {% endblock %}
+{% block body %}<h1>Trabajo {{name}} {{apellido}}</h1>
+{% set edad=8 %}
+
+<p>{{edad}}</p>
+<p>
+{% if edad>=18%}
+    es mayor de edad
+{% else %}
+    es menor de edad
+
+{% endif %}
+
+</p>
+<p>
+<h3>Paises</h3>
+<ul>
+{% for pais in paises%}
+    <li>Nombre: {{pais.nombre}}</li>
+{% endfor %}
+</ul>
+</p>
+<p>
+{{include('include.html')}}
+</p>
+<p>
+{% set html = '<b>Hola soy un texto en negritas</b>' %}
+{{html|raw}}
+</p>
+<p>
+Variable{{tamila}}
+</p>
+<p>{{dump(paises)}}</p>{% endblock %}
